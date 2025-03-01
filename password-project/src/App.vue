@@ -4,6 +4,19 @@
 
 <script setup>
 
+const baseString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
+
+function mainFunction () {
+  let resultPW = '';
+  for (let i = 0; i < 10; i ++) {
+    let randomNum = Math.floor(Math.random() * (baseString.length));
+    resultPW += baseString[randomNum];
+  }
+  console.log(resultPW);
+}
+
+mainFunction();
+
 </script>
 
 <style scoped>
