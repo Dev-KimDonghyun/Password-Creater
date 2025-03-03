@@ -1,21 +1,50 @@
 <template>
 
+<div>
+  <input class="inputHolder" @keydown="enterKeydown" v-model.trim="inputValue" placeholder="Please enter the desired length between 10 and 100">
+  <p class="entered">Entered length: {{ inputValue }}</p>
+  <button class="inputButton" @click="inputBtn">Create</button>
+</div>
+
 </template>
 
 <script setup>
 
-const baseString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
+import { ref } from 'vue';
+let inputValue = ref('');
 
-function mainFunction () {
-  let resultPW = '';
-  for (let i = 0; i < 10; i ++) {
-    let randomNum = Math.floor(Math.random() * (baseString.length));
-    resultPW += baseString[randomNum];
+
+const baseString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+
+
+function inputBtn () {
+
+  const inputValueNum = Number(inputValue.value);
+
+
+  if (inputValue.value === '') {
+    alert('Please enter a value');
+  } else if (inputValueNum < 10) {
+    alert('Please enter a number of 10 or more');
+  } else if (inputValueNum > 100) {
+    alert('Please enter a number of 100 or less');
+  } else if (isNaN(inputValueNum)) {
+    alert('Please enter a number');
+  } else {
+    let resultPW = '';
+    for (let i = 0; i < inputValueNum; i ++) {
+      let randomNum = Math.floor(Math.random() * (baseString.length));
+      resultPW += baseString[randomNum];
+    }
+    console.log(resultPW);
   }
-  console.log(resultPW);
 }
 
-mainFunction();
+function enterKeydown (event) {
+  if (event.key === 'Enter') {
+    inputBtn();
+  }
+}
 
 </script>
 
